@@ -18,9 +18,10 @@ set -e
 
 PROJECT_NUMBER="$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")"
 export PROJECT_NUMBER
-export APIGEE_ENV="eval"
+export APIGEE_ENV="${APIGEE_ENV:-qa}"
 export SERVICE_ACCOUNT_NAME="llm-cymbal-retail-agent"
 
+export GCP_PROJECT_REGION="${GCP_PROJECT_REGION:-us-central1}"
 export MODEL_ARMOR_REGION="${GCP_PROJECT_REGION}"
 export MODEL_ARMOR_TEMPLATE_ID="llm-governance-template" #use existing or create new template using this id
 
@@ -37,11 +38,11 @@ export MODEL_NAME="gemini-2.5-flash"
 
 # export NON_ADMIN_USER="${GCP_USER_2_ID}"
 
-echo "Installing dependecies like unzip and cosign"
-apt-get install -y unzip
-wget "https://github.com/sigstore/cosign/releases/download/v2.4.1/cosign-linux-amd64"
-mv cosign-linux-amd64 /usr/local/bin/cosign
-chmod +x /usr/local/bin/cosign
+# echo "Installing dependecies like unzip and cosign"
+# apt-get install -y unzip
+# wget "https://github.com/sigstore/cosign/releases/download/v2.4.1/cosign-linux-amd64"
+# mv cosign-linux-amd64 /usr/local/bin/cosign
+# chmod +x /usr/local/bin/cosign
 
 gcloud config set project $PROJECT_ID
 

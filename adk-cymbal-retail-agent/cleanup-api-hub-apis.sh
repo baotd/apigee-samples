@@ -30,7 +30,7 @@ if [ -z "$APIGEE_APIHUB_REGION" ]; then
   exit 1
 fi
 
-TOKEN=$(gcloud auth print-access-token)
+TOKEN=$(gcloud auth application-default print-access-token)
 
 delete_api_from_hub() {
   local api=$1

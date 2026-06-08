@@ -49,7 +49,15 @@ orders = APIHubToolset(
 # returns = APIHubToolset()
 
 # Customers
-# customers = MCPToolset()
+mcp_protocol = "http" if "localhost" in APIGEE_HOSTNAME or "127.0.0.1" in APIGEE_HOSTNAME else "https"
+customers = MCPToolset(
+    connection_params=StreamableHTTPConnectionParams(
+        url=f"{mcp_protocol}://{APIGEE_HOSTNAME}/mcp/v1/samples/adk-cymbal-retail/customers"
+    ),
+    errlog=None,
+    auth_scheme=auth_scheme,
+    auth_credential=auth_credential
+)
 
 # Shipping  (Application Integration ToolSet)
 # shipping = ApplicationIntegrationToolset()

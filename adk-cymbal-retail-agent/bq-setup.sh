@@ -37,13 +37,13 @@ fi
 # fi
 
 if [ -z "$TOKEN" ]; then
-  TOKEN=$(gcloud auth print-access-token)
+  TOKEN=$(gcloud auth application-default print-access-token)
 fi
 
 # Determine sed in-place arguments for portability (macOS vs Linux)
 sedi_args=("-i")
 if [[ "$(uname)" == "Darwin" ]]; then
-  sedi_args=("-i" "") # For macOS, sed -i requires an extension argument. "" means no backup.
+  sedi_args=("-i" "") # For macOS, sed -i '' requires an extension argument. "" means no backup.
 fi
 
 add_role_to_serviceaccount(){

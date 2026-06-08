@@ -67,7 +67,7 @@ if [ -z "$MODEL_ARMOR_TEMPLATE_ID" ]; then
 fi
 
 if [ -z "$TOKEN" ]; then
-  TOKEN=$(gcloud auth print-access-token)
+  TOKEN=$(gcloud auth application-default print-access-token)
 fi
 
 add_role_to_serviceaccount(){
@@ -101,54 +101,54 @@ add_rest_api_to_hub(){
   local api=$1
   local id="1_0_0"
   echo "Registering the $api API"
-  apigeecli apihub apis create --id "${api}_api" \
+  ( apigeecli apihub apis create --id "${api}_api" \
   -f "tmp/${api}/${api}-api.json" \
-  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 
-  apigeecli apihub apis versions create --api-id "${api}_api" --id $id \
-  -f "tmp/${api}/${api}-api-ver.json"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  ( apigeecli apihub apis versions create --api-id "${api}_api" --id $id \
+  -f "tmp/${api}/${api}-api-ver.json"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 
-  apigeecli apihub apis versions specs create --api-id "${api}_api" -i $id --version $id \
-  -d openapi.yaml -f "tmp/${api}/${api}.yaml"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  ( apigeecli apihub apis versions specs create --api-id "${api}_api" -i $id --version $id \
+  -d openapi.yaml -f "tmp/${api}/${api}.yaml"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 }
 
 add_soap_api_to_hub(){
   local api=$1
   local id="1_0_0"
   echo "Registering the $api API"
-  apigeecli apihub apis create --id "${api}_api" \
+  ( apigeecli apihub apis create --id "${api}_api" \
   -f "tmp/${api}/${api}-api.json" \
-  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 
-  apigeecli apihub apis versions create --api-id "${api}_api" --id $id \
-  -f "tmp/${api}/${api}-api-ver.json"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  ( apigeecli apihub apis versions create --api-id "${api}_api" --id $id \
+  -f "tmp/${api}/${api}-api-ver.json"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 
-  apigeecli apihub apis versions specs create --api-id "${api}_api" -i $id --version $id \
-  -d ${api}.wsdl -f "tmp/${api}/${api}.wsdl"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  ( apigeecli apihub apis versions specs create --api-id "${api}_api" -i $id --version $id \
+  -d ${api}.wsdl -f "tmp/${api}/${api}.wsdl"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 }
 
 add_grpc_api_to_hub(){
   local api=$1
   local id="1_0_0"
   echo "Registering the $api API"
-  apigeecli apihub apis create --id "${api}_api" \
+  ( apigeecli apihub apis create --id "${api}_api" \
   -f "tmp/${api}/${api}-api.json" \
-  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 
-  apigeecli apihub apis versions create --api-id "${api}_api" --id $id \
-  -f "tmp/${api}/${api}-api-ver.json"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  ( apigeecli apihub apis versions create --api-id "${api}_api" --id $id \
+  -f "tmp/${api}/${api}-api-ver.json"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 
-  apigeecli apihub apis versions specs create --api-id "${api}_api" -i $id --version $id \
-  -d ${api}.proto -f "tmp/${api}/${api}.proto"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  ( apigeecli apihub apis versions specs create --api-id "${api}_api" -i $id --version $id \
+  -d ${api}.proto -f "tmp/${api}/${api}.proto"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 }
 
 add_mcp_api_to_hub(){
   local api=$1
   local id="1_0_0"
   echo "Registering the $api API"
-  apigeecli apihub apis create --id "${api}_api" \
+  ( apigeecli apihub apis create --id "${api}_api" \
   -f "tmp/${api}/${api}-api.json" \
-  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 }
 
 _sleep() {
@@ -184,9 +184,9 @@ echo "Installing dependencies..."
 
 echo "Registering APIs in Apigee API hub"
 cp -rf config tmp/
-sed -i "s/APIGEE_HOST/$APIGEE_HOST/g" tmp/*/*.yaml
-sed -i "s/APIGEE_APIHUB_PROJECT_ID/$APIGEE_APIHUB_PROJECT_ID/g" tmp/*/*.json
-sed -i "s/APIGEE_APIHUB_REGION/$APIGEE_APIHUB_REGION/g" tmp/*/*.json
+sed -i '' "s/APIGEE_HOST/$APIGEE_HOST/g" tmp/*/*.yaml
+sed -i '' "s/APIGEE_APIHUB_PROJECT_ID/$APIGEE_APIHUB_PROJECT_ID/g" tmp/*/*.json
+sed -i '' "s/APIGEE_APIHUB_REGION/$APIGEE_APIHUB_REGION/g" tmp/*/*.json
 
 apigeecli apihub attributes update -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" --allowed-values  "config/business-units.json" --data-type "ENUM" -i "system-business-unit" -s "API" -m "allowed_values" -d "Business Unit"
 apigeecli apihub attributes update -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" --allowed-values  "config/teams.json" --data-type "ENUM" -i "system-team" -s "API" -m "allowed_values" -d "Team"
@@ -203,16 +203,10 @@ add_rest_api_to_hub "products"
 add_rest_api_to_hub "returns"
 add_rest_api_to_hub "stocks"
 
-apigee-go-gen render apiproxy \
-  --template ./config/templates/mcp/apiproxy.yaml \
-  --set-oas spec=./tmp/customers/customers.yaml \
-  --include ./config/templates/mcp/*.tmpl \
-  --output ./proxies/mcp-cymbal-customers-v1
-
 rm -rf tmp
 
 echo "Creating Service Account and assigning permissions"
-gcloud iam service-accounts create "$SERVICE_ACCOUNT_NAME" --project "$PROJECT_ID"
+gcloud iam service-accounts create "$SERVICE_ACCOUNT_NAME" --project "$PROJECT_ID" || true
 _sleep 10
 
 add_role_to_serviceaccount "roles/logging.logWriter"
@@ -234,7 +228,7 @@ gcloud model-armor templates create "$MODEL_ARMOR_TEMPLATE_ID" -q --location "$M
   --basic-config-filter-enforcement=enabled \
   --pi-and-jailbreak-filter-settings-enforcement=enabled \
   --pi-and-jailbreak-filter-settings-confidence-level=LOW_AND_ABOVE \
-  --malicious-uri-filter-settings-enforcement=enabled
+  --malicious-uri-filter-settings-enforcement=enabled || true
 
 curl --location "https://dlp.googleapis.com/v2/projects/$PROJECT_ID/deidentifyTemplates" \
 --header "X-Goog-User-Project: $PROJECT_NUMBER" \
@@ -267,13 +261,13 @@ curl --location "https://dlp.googleapis.com/v2/projects/$PROJECT_ID/deidentifyTe
 
 echo "Creating Data collectors..."
 
-apigeecli datacollectors create -d "Collects PII or Jailbreak attack matches" -n dc_ma_pi_jailbreak -p INTEGER --org "$PROJECT_ID" --token "$TOKEN"
-apigeecli datacollectors create -d "Collects malicious URI matches" -n dc_ma_malicious_uri -p INTEGER --org "$PROJECT_ID" --token "$TOKEN"
-apigeecli datacollectors create -d "Collects dangerous and Responsible AI matches" -n dc_ma_rai -p INTEGER --org "$PROJECT_ID" --token "$TOKEN"
-apigeecli datacollectors create -d "Collects CSAM matches" -n dc_ma_csam -p INTEGER --org "$PROJECT_ID" --token "$TOKEN"
-apigeecli datacollectors create -d "Candidates token count" -n dc_candidates_token_count -p INTEGER --org "$PROJECT_ID" --token "$TOKEN"
-apigeecli datacollectors create -d "Prompt token count" -n dc_prompt_token_count -p INTEGER --org "$PROJECT_ID" --token "$TOKEN"
-apigeecli datacollectors create -d "Total token count" -n dc_total_token_count -p INTEGER --org "$PROJECT_ID" --token "$TOKEN"
+apigeecli datacollectors create -d "Collects PII or Jailbreak attack matches" -n dc_ma_pi_jailbreak -p INTEGER --org "$PROJECT_ID" --token "$TOKEN" || true
+apigeecli datacollectors create -d "Collects malicious URI matches" -n dc_ma_malicious_uri -p INTEGER --org "$PROJECT_ID" --token "$TOKEN" || true
+apigeecli datacollectors create -d "Collects dangerous and Responsible AI matches" -n dc_ma_rai -p INTEGER --org "$PROJECT_ID" --token "$TOKEN" || true
+apigeecli datacollectors create -d "Collects CSAM matches" -n dc_ma_csam -p INTEGER --org "$PROJECT_ID" --token "$TOKEN" || true
+apigeecli datacollectors create -d "Candidates token count" -n dc_candidates_token_count -p INTEGER --org "$PROJECT_ID" --token "$TOKEN" || true
+apigeecli datacollectors create -d "Prompt token count" -n dc_prompt_token_count -p INTEGER --org "$PROJECT_ID" --token "$TOKEN" || true
+apigeecli datacollectors create -d "Total token count" -n dc_total_token_count -p INTEGER --org "$PROJECT_ID" --token "$TOKEN" || true
 
 echo "Creating Token Consumption Report...."
 
@@ -306,12 +300,16 @@ echo "Deploying the proxies"
 import_and_deploy_proxy "cymbal-customers-v1"
 import_and_deploy_proxy "cymbal-orders-v1"
 import_and_deploy_proxy "cymbal-returns-v1"
-import_and_deploy_proxy "mcp-cymbal-customers-v1"
+import_and_deploy_proxy "mcp-generic-gateway-v1"
 import_and_deploy_proxy "adk-retail-agent-llm-governance-v1"
 
-rm -rf proxies/mcp-cymbal-customers-v1
+echo "Deploying MCP Tool Configurations to Key-Value Map"
+source ../workspace/cymbal-retail-agent/.venv/bin/activate && python3 deploy_mcp_configs.py
 
-echo "Creating API Products"
+echo "Creating or Updating API Products"
+apigeecli products update --name "cymbal-retail-product" --display-name "cymbal-retail-product" \
+  --opgrp ./config/cymbal-retail-product-ops.json --envs "$APIGEE_ENV" \
+  --approval auto --org "$PROJECT_ID" --token "$TOKEN" || \
 apigeecli products create --name "cymbal-retail-product" --display-name "cymbal-retail-product" \
   --opgrp ./config/cymbal-retail-product-ops.json --envs "$APIGEE_ENV" \
   --approval auto --org "$PROJECT_ID" --token "$TOKEN"
@@ -319,18 +317,18 @@ apigeecli products create --name "cymbal-retail-product" --display-name "cymbal-
 echo "Creating Developer"
 apigeecli developers create --user cymbal-retail-developer \
   --email "cymbal-retail-developer@acme.com" --first="Cymbal Retail" \
-  --last="Sample User" --org "$PROJECT_ID" --token "$TOKEN"
+  --last="Sample User" --org "$PROJECT_ID" --token "$TOKEN" || true
 
 echo "Creating Developer App"
 apigeecli apps create --name cymbal-retail-app --email "cymbal-retail-developer@acme.com" \
-  --prods "cymbal-retail-product" --org "$PROJECT_ID" --token "$TOKEN" --disable-check
+  --prods "cymbal-retail-product" --org "$PROJECT_ID" --token "$TOKEN" --disable-check || true
 
 APIKEY=$(apigeecli apps get --name "cymbal-retail-app" --org "$PROJECT_ID" --token "$TOKEN" --disable-check | jq ."[0].credentials[0].consumerKey" -r)
 
 SECRET_ID="cymbal-retail-apikey"
 echo "Creating a Secret that will be used by ADK"
-gcloud secrets create "$SECRET_ID" --replication-policy="automatic" --project "$PROJECT_ID"
-echo -n "$APIKEY" | gcloud secrets versions add "$SECRET_ID" --project "$PROJECT_ID" --data-file=- 
+gcloud secrets create "$SECRET_ID" --replication-policy="automatic" --project "$PROJECT_ID" || true
+echo -n "$APIKEY" | gcloud secrets versions add "$SECRET_ID" --project "$PROJECT_ID" --data-file=- || true
 echo "Secret $SECRET_ID created successfully"
 
 echo "Crating Flow-Hook for cloud-logger-v1 sharedflow ..."
@@ -339,7 +337,7 @@ apigeecli flowhooks attach \
  --sharedflow "cloud-logger-v1" \
  --env "$APIGEE_ENV" \
  --org "$PROJECT_ID" \
- --token "$TOKEN"
+ --token "$TOKEN" || true
 
 export APIKEY
 export PROXY_URL="$APIGEE_HOST/v1/samples/adk-cymbal-retail"

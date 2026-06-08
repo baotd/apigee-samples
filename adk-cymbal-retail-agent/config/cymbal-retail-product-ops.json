@@ -4,7 +4,51 @@
          "apiSource":"cymbal-customers-v1",
          "operations":[
             {
+               "resource":"/**",
+               "methods":[
+                  "GET",
+                  "POST",
+                  "PUT",
+                  "DELETE",
+                  "PATCH",
+                  "HEAD",
+                  "OPTIONS"
+               ]
+            }
+         ],
+         "quota":{
+            "limit":"2000",
+            "interval":"1",
+            "timeUnit":"minute"
+         }
+      },
+      {
+         "apiSource":"cymbal-customers-v1",
+         "operations":[
+            {
                "resource":"/",
+               "methods":[
+                  "GET",
+                  "POST",
+                  "PUT",
+                  "DELETE",
+                  "PATCH",
+                  "HEAD",
+                  "OPTIONS"
+               ]
+            }
+         ],
+         "quota":{
+            "limit":"2000",
+            "interval":"1",
+            "timeUnit":"minute"
+         }
+      },
+      {
+         "apiSource":"cymbal-orders-v1",
+         "operations":[
+            {
+               "resource":"/**",
                "methods":[
                   "GET",
                   "POST",
@@ -48,6 +92,28 @@
          "apiSource":"cymbal-returns-v1",
          "operations":[
             {
+               "resource":"/**",
+               "methods":[
+                  "GET",
+                  "POST",
+                  "PUT",
+                  "DELETE",
+                  "PATCH",
+                  "HEAD",
+                  "OPTIONS"
+               ]
+            }
+         ],
+         "quota":{
+            "limit":"2000",
+            "interval":"1",
+            "timeUnit":"minute"
+         }
+      },
+      {
+         "apiSource":"cymbal-returns-v1",
+         "operations":[
+            {
                "resource":"/",
                "methods":[
                   "GET",
@@ -68,6 +134,72 @@
       },
       {
          "apiSource":"adk-retail-agent-llm-governance-v1",
+         "operations":[
+            {
+               "resource":"/**",
+               "methods":[
+                  "GET",
+                  "POST",
+                  "PUT",
+                  "DELETE",
+                  "PATCH",
+                  "HEAD",
+                  "OPTIONS"
+               ]
+            }
+         ],
+         "quota":{
+            "limit":"10000",
+            "interval":"1",
+            "timeUnit":"minute"
+         }
+      },
+      {
+         "apiSource":"adk-retail-agent-llm-governance-v1",
+         "operations":[
+            {
+               "resource":"/",
+               "methods":[
+                  "GET",
+                  "POST",
+                  "PUT",
+                  "DELETE",
+                  "PATCH",
+                  "HEAD",
+                  "OPTIONS"
+               ]
+            }
+         ],
+         "quota":{
+            "limit":"10000",
+            "interval":"1",
+            "timeUnit":"minute"
+         }
+      },
+      {
+         "apiSource":"mcp-generic-gateway-v1",
+         "operations":[
+            {
+               "resource":"/**",
+               "methods":[
+                  "GET",
+                  "POST",
+                  "PUT",
+                  "DELETE",
+                  "PATCH",
+                  "HEAD",
+                  "OPTIONS"
+               ]
+            }
+         ],
+         "quota":{
+            "limit":"10000",
+            "interval":"1",
+            "timeUnit":"minute"
+         }
+      },
+      {
+         "apiSource":"mcp-generic-gateway-v1",
          "operations":[
             {
                "resource":"/",

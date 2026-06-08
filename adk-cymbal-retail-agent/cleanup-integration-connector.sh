@@ -25,7 +25,7 @@ if [ -z "$VERTEXAI_REGION" ]; then
   exit 1
 fi
 
-TOKEN=$(gcloud auth print-access-token)
+TOKEN=$(gcloud auth application-default print-access-token)
 
 remove_role_from_service_account() {
   local role=$1

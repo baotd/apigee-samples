@@ -31,7 +31,7 @@ if [ -z "$VERTEXAI_REGION" ]; then
 fi
 
 if [ -z "$TOKEN" ]; then
-  TOKEN=$(gcloud auth print-access-token)
+  TOKEN=$(gcloud auth application-default print-access-token)
 fi
 
 remove_role_from_service_account() {

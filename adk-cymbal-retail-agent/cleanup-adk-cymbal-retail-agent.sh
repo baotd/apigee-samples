@@ -13,7 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
- set -e
+ set +e
 
 if [ -z "$PROJECT_ID" ]; then
   echo "No PROJECT_ID variable set"
@@ -51,7 +51,7 @@ if [ -z "$MODEL_ARMOR_TEMPLATE_ID" ]; then
 fi
 
 
-TOKEN=$(gcloud auth print-access-token)
+TOKEN=$(gcloud auth application-default print-access-token)
 
 delete_api() {
   local api_name=$1
@@ -105,8 +105,11 @@ apigeecli products delete --name cymbal-retail-product --org "$PROJECT_ID" --tok
 delete_api "cymbal-customers-v1"
 delete_api "cymbal-orders-v1"
 delete_api "cymbal-returns-v1"
-delete_api "mcp-cymbal-customers-v1"
+delete_api "mcp-generic-gateway-v1"
 delete_api "adk-retail-agent-llm-governance-v1"
+
+echo "Deleting KVM Store"
+apigeecli kvms delete --name "MCP-Configs" --env "$APIGEE_ENV" --org "$PROJECT_ID" --token "$TOKEN"
 
 delete_sharedflow "llm-extract-candidates-v1"
 delete_sharedflow "llm-extract-prompts-v1"

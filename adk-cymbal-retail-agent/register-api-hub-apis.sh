@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -e
+set +e
 
 if [ -z "$PROJECT_ID" ]; then
   echo "No PROJECT_ID variable set"
@@ -32,68 +32,68 @@ if [ -z "$APIGEE_APIHUB_REGION" ]; then
 fi
 
 if [ -z "$TOKEN" ]; then
-  TOKEN=$(gcloud auth print-access-token)
+  TOKEN=$(gcloud auth application-default print-access-token)
 fi
 
 add_rest_api_to_hub(){
   local api=$1
   local id="1_0_0"
   echo "Registering the $api API"
-  apigeecli apihub apis create --id "${api}_api" \
+  ( apigeecli apihub apis create --id "${api}_api" \
   -f "tmp/${api}/${api}-api.json" \
-  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 
-  apigeecli apihub apis versions create --api-id "${api}_api" --id $id \
-  -f "tmp/${api}/${api}-api-ver.json"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  ( apigeecli apihub apis versions create --api-id "${api}_api" --id $id \
+  -f "tmp/${api}/${api}-api-ver.json"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 
-  apigeecli apihub apis versions specs create --api-id "${api}_api" -i $id --version $id \
-  -d openapi.yaml -f "tmp/${api}/${api}.yaml"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  ( apigeecli apihub apis versions specs create --api-id "${api}_api" -i $id --version $id \
+  -d openapi.yaml -f "tmp/${api}/${api}.yaml"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 }
 
 add_soap_api_to_hub(){
   local api=$1
   local id="1_0_0"
   echo "Registering the $api API"
-  apigeecli apihub apis create --id "${api}_api" \
+  ( apigeecli apihub apis create --id "${api}_api" \
   -f "tmp/${api}/${api}-api.json" \
-  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 
-  apigeecli apihub apis versions create --api-id "${api}_api" --id $id \
-  -f "tmp/${api}/${api}-api-ver.json"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  ( apigeecli apihub apis versions create --api-id "${api}_api" --id $id \
+  -f "tmp/${api}/${api}-api-ver.json"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 
-  apigeecli apihub apis versions specs create --api-id "${api}_api" -i $id --version $id \
-  -d ${api}.wsdl -f "tmp/${api}/${api}.wsdl"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  ( apigeecli apihub apis versions specs create --api-id "${api}_api" -i $id --version $id \
+  -d ${api}.wsdl -f "tmp/${api}/${api}.wsdl"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 }
 
 add_grpc_api_to_hub(){
   local api=$1
   local id="1_0_0"
   echo "Registering the $api API"
-  apigeecli apihub apis create --id "${api}_api" \
+  ( apigeecli apihub apis create --id "${api}_api" \
   -f "tmp/${api}/${api}-api.json" \
-  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 
-  apigeecli apihub apis versions create --api-id "${api}_api" --id $id \
-  -f "tmp/${api}/${api}-api-ver.json"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  ( apigeecli apihub apis versions create --api-id "${api}_api" --id $id \
+  -f "tmp/${api}/${api}-api-ver.json"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 
-  apigeecli apihub apis versions specs create --api-id "${api}_api" -i $id --version $id \
-  -d ${api}.proto -f "tmp/${api}/${api}.proto"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  ( apigeecli apihub apis versions specs create --api-id "${api}_api" -i $id --version $id \
+  -d ${api}.proto -f "tmp/${api}/${api}.proto"  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 }
 
 add_mcp_api_to_hub(){
   local api=$1
   local id="1_0_0"
   echo "Registering the $api API"
-  apigeecli apihub apis create --id "${api}_api" \
+  ( apigeecli apihub apis create --id "${api}_api" \
   -f "tmp/${api}/${api}-api.json" \
-  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN"
+  -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" ) || true
 }
 
 echo "Registering APIs in Apigee API hub"
 cp -rf config tmp/
-sed -i "s/APIGEE_HOST/$APIGEE_HOST/g" tmp/*/*.yaml
-sed -i "s/APIGEE_APIHUB_PROJECT_ID/$APIGEE_APIHUB_PROJECT_ID/g" tmp/*/*.json
-sed -i "s/APIGEE_APIHUB_REGION/$APIGEE_APIHUB_REGION/g" tmp/*/*.json
+sed -i '' "s/APIGEE_HOST/$APIGEE_HOST/g" tmp/*/*.yaml
+sed -i '' "s/APIGEE_APIHUB_PROJECT_ID/$APIGEE_APIHUB_PROJECT_ID/g" tmp/*/*.json
+sed -i '' "s/APIGEE_APIHUB_REGION/$APIGEE_APIHUB_REGION/g" tmp/*/*.json
 
 apigeecli apihub attributes update -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" --allowed-values  "config/business-units.json" --data-type "ENUM" -i "system-business-unit" -s "API" -m "allowed_values" -d "Business Unit"
 apigeecli apihub attributes update -r "$APIGEE_APIHUB_REGION" -o "$APIGEE_APIHUB_PROJECT_ID" -t "$TOKEN" --allowed-values  "config/teams.json" --data-type "ENUM" -i "system-team" -s "API" -m "allowed_values" -d "Team"
