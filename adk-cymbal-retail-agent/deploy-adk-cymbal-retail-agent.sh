@@ -175,9 +175,6 @@ echo "Installing apigeecli"
 curl -s https://raw.githubusercontent.com/apigee/apigeecli/main/downloadLatest.sh | bash
 export PATH=$PATH:$HOME/.apigeecli/bin
 
-echo "✅ Installing apigee-go-gen tool ..."
-curl -s https://apigee.github.io/apigee-go-gen/install | bash -s v1.1.0-beta.9 ~/.apigee-go-gen/bin
-export PATH=$PATH:$HOME/.apigee-go-gen/bin
 
 echo "Installing dependencies..."
 #npm install
