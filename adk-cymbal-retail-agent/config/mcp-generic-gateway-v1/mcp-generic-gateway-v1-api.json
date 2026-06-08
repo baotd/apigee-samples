@@ -1,5 +1,5 @@
 {
-	"displayName": "Cymbal Customers MCP API",
+	"displayName": "Cymbal Dynamic MCP Gateway API",
 	"targetUser": {
 		"attribute": "projects/apigee-x-non-prod-01/locations/us-central1/attributes/system-target-user",
 		"enumValues": {
