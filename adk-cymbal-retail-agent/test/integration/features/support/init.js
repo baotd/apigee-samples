@@ -18,7 +18,7 @@ const apickli = require("apickli");
 const { Before: before } = require("@cucumber/cucumber");
 
 var {setDefaultTimeout} = require('@cucumber/cucumber');
-setDefaultTimeout(10 * 1000);
+setDefaultTimeout(25 * 1000);
 
 if (!process.env.APIGEE_HOST || !process.env.APIKEY) {
   

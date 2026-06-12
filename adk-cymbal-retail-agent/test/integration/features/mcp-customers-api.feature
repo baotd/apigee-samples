@@ -26,7 +26,7 @@ Scenario: initialize
   When I POST to /mcp/v1/samples/adk-cymbal-retail/customers
   Then response code should be 200
   And response body should be valid json
-  And response body should contain mcp-customer-profile-api
+  And response body should contain mcp-generic-gateway
   And response body should contain jsonrpc
 
 Scenario: tools/list
@@ -46,7 +46,7 @@ Scenario: tools/list
   And response body should contain getAllCustomers
 
   Scenario: tools/call
-  Given I store the raw value {"method":"tools/call","params":{"name":"getCustomerById","arguments":{"path_params":{"customerId":12345}}},"jsonrpc":"2.0","id":1} as myPayload in scenario scope
+  Given I store the raw value {"method":"tools/call","params":{"name":"getCustomerById","arguments":{"customerId":12345}},"jsonrpc":"2.0","id":1} as myPayload in scenario scope
   And I set body to `myPayload`
   And I set headers to
       | name          | value            |

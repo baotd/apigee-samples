@@ -69,6 +69,7 @@ fi
 if [ -z "$TOKEN" ]; then
   TOKEN=$(gcloud auth application-default print-access-token)
 fi
+export TOKEN
 
 add_role_to_serviceaccount(){
   local role=$1
