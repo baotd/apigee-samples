@@ -200,6 +200,7 @@ add_rest_api_to_hub "orders"
 add_rest_api_to_hub "products"
 add_rest_api_to_hub "returns"
 add_rest_api_to_hub "stocks"
+add_rest_api_to_hub "shipping"
 
 rm -rf tmp
 
@@ -214,7 +215,6 @@ add_role_to_serviceaccount "roles/iam.serviceAccountUser"
 add_role_to_serviceaccount "roles/dlp.reader"
 add_role_to_serviceaccount "roles/dlp.user"
 add_role_to_serviceaccount "roles/apigee.analyticsEditor"
-add_role_to_serviceaccount "roles/integrations.integrationEditor"
 add_role_to_serviceaccount "roles/secretmanager.secretAccessor"
 add_role_to_serviceaccount "roles/apigee.apiReaderV2"
 
@@ -300,6 +300,7 @@ import_and_deploy_proxy "cymbal-orders-v1"
 import_and_deploy_proxy "cymbal-returns-v1"
 import_and_deploy_proxy "mcp-generic-gateway-v1"
 import_and_deploy_proxy "adk-retail-agent-llm-governance-v1"
+import_and_deploy_proxy "cymbal-shipping-v1"
 
 echo "Deploying MCP Tool Configurations to Key-Value Map"
 source ../workspace/cymbal-retail-agent/.venv/bin/activate && python3 deploy_mcp_configs.py

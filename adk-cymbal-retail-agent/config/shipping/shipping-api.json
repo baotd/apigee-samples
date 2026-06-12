@@ -1,0 +1,97 @@
+{
+    "displayName": "Cymbal Shipping API",
+    "description": "This API manages shipping operations, allowing for calculation of rates and creation of shipping labels.",
+    "documentation": {
+        "externalUri": "https://developer.cymbal-retail.com/docs/reference/apis/shipping"
+    },
+    "owner": {
+        "displayName": "Cymbal Retail API Team",
+        "email": "api-dev@cymbal-retail.com"
+    },
+    "targetUser": {
+        "attribute": "projects/APIGEE_APIHUB_PROJECT_ID/locations/APIGEE_APIHUB_REGION/attributes/system-target-user",
+        "enumValues": {
+            "values": [
+                {
+                    "id": "internal",
+                    "displayName": "Internal",
+                    "description": "Internal target user",
+                    "immutable": true
+                }
+            ]
+        }
+    },
+    "team": {
+        "attribute": "projects/APIGEE_APIHUB_PROJECT_ID/locations/APIGEE_APIHUB_REGION/attributes/system-team",
+        "enumValues": {
+            "values": [
+                {
+                    "id": "retail-api",
+                    "displayName": "Cymbal Retail API",
+                    "description": "Cymbal Retail API"
+                }
+            ]
+        }
+    },
+    "businessUnit": {
+        "attribute": "projects/APIGEE_APIHUB_PROJECT_ID/locations/APIGEE_APIHUB_REGION/attributes/system-business-unit",
+        "enumValues": {
+            "values": [
+                {
+                    "id": "retail",
+                    "displayName": "Cymbal Retail",
+                    "description": "Cymbal Retail"
+                }
+            ]
+        }
+    },
+    "maturityLevel": {
+        "attribute": "projects/APIGEE_APIHUB_PROJECT_ID/locations/APIGEE_APIHUB_REGION/attributes/system-maturity-level",
+        "enumValues": {
+            "values": [
+                {
+                    "id": "level-2",
+                    "displayName": "Level 2",
+                    "description": "Level 2"
+                }
+            ]
+        }
+    },
+    "apiStyle": {
+        "attribute": "projects/APIGEE_APIHUB_PROJECT_ID/locations/APIGEE_APIHUB_REGION/attributes/system-api-style",
+        "enumValues": {
+            "values": [
+                {
+                    "id": "rest",
+                    "displayName": "REST",
+                    "description": "REST",
+                    "immutable": true
+                }
+            ]
+        }
+    },
+    "apiRequirements": {
+        "attribute": "projects/APIGEE_APIHUB_PROJECT_ID/locations/APIGEE_APIHUB_REGION/attributes/system-api-requirements",
+        "uriValues": {
+            "values": [
+                "https://example.com"
+            ]
+        }
+    },
+    "apiFunctionalRequirements": {
+        "attribute": "projects/APIGEE_APIHUB_PROJECT_ID/locations/APIGEE_APIHUB_REGION/attributes/system-api-functional-requirements",
+        "uriValues": {
+            "values": [
+                "https://example.com"
+            ]
+        }
+    },
+    "apiTechnicalRequirements": {
+        "attribute": "projects/APIGEE_APIHUB_PROJECT_ID/locations/APIGEE_APIHUB_REGION/attributes/system-api-technical-requirements",
+        "uriValues": {
+            "values": [
+                "https://example.com"
+            ]
+        }
+    }
+}

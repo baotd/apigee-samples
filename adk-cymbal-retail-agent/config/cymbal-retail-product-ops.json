@@ -219,6 +219,50 @@
             "interval":"1",
             "timeUnit":"minute"
          }
+      },
+      {
+         "apiSource":"cymbal-shipping-v1",
+         "operations":[
+            {
+               "resource":"/**",
+               "methods":[
+                  "GET",
+                  "POST",
+                  "PUT",
+                  "DELETE",
+                  "PATCH",
+                  "HEAD",
+                  "OPTIONS"
+               ]
+            }
+         ],
+         "quota":{
+            "limit":"2000",
+            "interval":"1",
+            "timeUnit":"minute"
+         }
+      },
+      {
+         "apiSource":"cymbal-shipping-v1",
+         "operations":[
+            {
+               "resource":"/",
+               "methods":[
+                  "GET",
+                  "POST",
+                  "PUT",
+                  "DELETE",
+                  "PATCH",
+                  "HEAD",
+                  "OPTIONS"
+               ]
+            }
+         ],
+         "quota":{
+            "limit":"2000",
+            "interval":"1",
+            "timeUnit":"minute"
+         }
       }
    ],
    "operationConfigType":"proxy"

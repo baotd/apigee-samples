@@ -17,7 +17,6 @@ from dotenv import load_dotenv
 
 from google.adk.tools.apihub_tool.apihub_toolset import APIHubToolset
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
-from google.adk.tools.application_integration_tool.application_integration_toolset import ApplicationIntegrationToolset
 from google.adk.tools.mcp_tool.mcp_toolset import StreamableHTTPConnectionParams
 from google.adk.tools.apihub_tool.clients.secret_client import SecretManagerClient
 from google.adk.tools.openapi_tool.auth.auth_helpers import token_to_scheme_credential
@@ -59,8 +58,15 @@ customers = MCPToolset(
     auth_credential=auth_credential
 )
 
-# Shipping  (Application Integration ToolSet)
-# shipping = ApplicationIntegrationToolset()
+# Shipping
+shipping_api_id = "shipping_api"
+shipping = APIHubToolset(
+    name="cymbal-shipping-api",
+    description="Manage customer shipping and labels API",
+    apihub_resource_name=f"{API_HUB_LOCATION}/{shipping_api_id}",
+    auth_scheme=auth_scheme,
+    auth_credential=auth_credential
+)
 
 
 

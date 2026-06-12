@@ -107,6 +107,7 @@ delete_api "cymbal-orders-v1"
 delete_api "cymbal-returns-v1"
 delete_api "mcp-generic-gateway-v1"
 delete_api "adk-retail-agent-llm-governance-v1"
+delete_api "cymbal-shipping-v1"
 
 echo "Deleting KVM Store"
 apigeecli kvms delete --name "MCP-Configs" --env "$APIGEE_ENV" --org "$PROJECT_ID" --token "$TOKEN"
@@ -127,6 +128,7 @@ delete_api_from_hub "products"
 delete_api_from_hub "returns"
 delete_api_from_hub "shipments"
 delete_api_from_hub "stocks"
+delete_api_from_hub "shipping"
 
 
 echo "Deleting Token Consumption Report"

@@ -53,5 +53,4 @@ sleep 15
 # ./oauth-setup.sh
 # cat oauth_client_env.sh #to be removed
 # source ./oauth_client_env.sh
-./create-integration-connector.sh
 ./deploy-adk-cymbal-retail-agent.sh
