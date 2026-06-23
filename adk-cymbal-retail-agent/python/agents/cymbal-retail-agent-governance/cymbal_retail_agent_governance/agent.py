@@ -81,7 +81,7 @@ You are a specialized agent for managing customer information. Your sole respons
 """,
     tools=[customers]
 )
-logging.info("customers Agent initialized.")
+logging.info("Customers Agent initialized.")
 
 shipping_agent = Agent(
     model=model,
@@ -98,7 +98,7 @@ logging.info("Shipping Agent initialized.")
 root_agent = Agent(
     model=model,
     name='customerserviceagent',
-    description="Agent to retrieve customers orders, customers profiles, products information and process returns. This agent can delegate tasks to specialized sub-agents.",
+    description="Agent to retrieve customer order, customer profile, shipping information and process returns. This agent can delegate tasks to specialized sub-agents.",
     global_instruction="""You are a helpful virtual assistant for a retail company named Cymbal Retail. Always respond politely.""",
     instruction="""
 **Your Primary Goal:**

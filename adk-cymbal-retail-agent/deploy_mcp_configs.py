@@ -52,7 +52,10 @@ def main():
     
     # Define specs to parse and load
     specs = {
-        "customers": "config/customers/customers.yaml"
+        "customers": "config/customers/customers.yaml",
+        "orders": "config/orders/orders.yaml",
+        "shipping": "config/shipping/shipping.yaml",
+        "returns": "config/returns/returns.yaml"
     }
     
     for service, spec_path in specs.items():

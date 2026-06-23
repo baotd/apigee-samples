@@ -17,3 +17,5 @@
 **/env1.sh
 .venv
 .idea
+**/__pycache__/**
+*.pyc

@@ -6,3 +6,6 @@ __pycache__
 .gitignore
 client.json
 oauth_client_env.sh
+.adk
+env.sh
+env1.sh

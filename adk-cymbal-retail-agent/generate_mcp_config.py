@@ -117,7 +117,7 @@ def parse_oas_to_mcp(spec_path):
             tools_info[operation_id] = {
                 'target': {
                     'url': default_url,
-                    'pathSuffix': path,
+                    'pathSuffix': "" if path == "/" else path,
                     'verb': verb.upper(),
                     'headers': {
                         'content-type': content_type,

@@ -15,7 +15,7 @@
 from google.adk.agents import Agent
 from dotenv import load_dotenv
 import os
-from .tools import orders, customers, shipping
+from .tools import orders, customers, shipping, returns
 
 import warnings
 # Ignore all warnings
@@ -45,8 +45,16 @@ You are a specialized agent for managing customer orders. Your sole responsibili
 )
 logging.info("Orders Agent initialized.")
 
-# returns_agent = Agent()
-# logging.info("Returns Agent initialized.")
+returns_agent = Agent(
+    model=model,
+    name='returnsagent',
+    description="Agent to handle customer returns and refunds.",
+    instruction="""
+You are a specialized agent for handling customer returns and refunds. Your sole responsibility is to use the provided tools to process a return request, check the status of a refund, or provide return instructions. You will receive a request from the root agent. You should not process any other type of request.
+""",
+    tools=[returns]
+)
+logging.info("Returns Agent initialized.")
 
 customers_agent = Agent(
     model=model,
@@ -89,6 +97,6 @@ You are the Cymbal Retail Agent
 7. If the user wants to get all customers use the customers tool to retrieve all customers information. 
 8. Throughout the conversation, maintain a friendly and helpful tone. If you need more information to complete a request, politely ask for it.
 """,
-    sub_agents=[orders_agent, customers_agent, shipping_agent]
+    sub_agents=[orders_agent, returns_agent, customers_agent, shipping_agent]
 )
 logging.info("Root Agent initialized successfully. Ready to receive input.")
