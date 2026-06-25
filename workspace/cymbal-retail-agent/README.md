@@ -1,5 +1,18 @@
 # Cymbal Retail Agent
 
+## Steps to run the ADK Web UI locally
+
+1. Navigate to the `cymbal-retail-agent` directory if not already there
+2. Run the following command to load environment variables
+```sh
+source .env
+```
+3. Start the local ADK Web UI server using the virtual environment
+```sh
+.venv/bin/adk web .
+```
+4. Open your browser and navigate to `http://127.0.0.1:8000` to interact with the agent.
+
 ## Steps to deploy the ADK code to Agent Engine
 
 1. Navigate to the `cymbal-retail-agent` directory if not already there
