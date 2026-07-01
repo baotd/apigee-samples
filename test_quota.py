@@ -90,9 +90,18 @@ for i, prompt in enumerate(prompts, 1):
     except Exception as e:
         error_msg = str(e)
         if "429" in error_msg or "Quota Exceeded" in error_msg:
-            print(f"\n[BỊ CHẶN THÀNH CÔNG] Lỗi xảy ra ở yêu cầu {i}:")
-            print(e)
-            print("\n🎉 Tuyệt vời! Hệ thống đã chặn chính xác khi vượt quá hạn mức 2000 tokens của gói Bronze!")
+            print(f"\n[BỊ CHẶN THÀNH CÔNG] Yêu cầu {i} đã bị chặn chính xác bởi Apigee LLM Gateway!")
+            details = getattr(e, "details", None)
+            code = getattr(e, "code", None)
+            if isinstance(details, dict):
+                fault = details.get("fault", {})
+                faultstring = fault.get("faultstring", "")
+                errorcode = fault.get("detail", {}).get("errorcode", "")
+                print(f"- HTTP Status Code: {code}")
+                print(f"- Fault String: {faultstring}")
+                print(f"- Error Code: {errorcode}")
+            else:
+                print(f"- Chi tiết lỗi: {e}")
         else:
             import traceback
             traceback.print_exc()

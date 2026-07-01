@@ -259,9 +259,18 @@ for i, prompt in enumerate(prompts, 1):
     except Exception as e:
         error_msg = str(e)
         if "429" in error_msg or "Quota Exceeded" in error_msg:
-            print(f"\n[BỊ CHẶN THÀNH CÔNG] Lỗi xảy ra ở yêu cầu {i}:")
-            print(e)
-            print("\n🎉 Tuyệt vời! Hệ thống đã chặn chính xác khi vượt quá hạn mức 2000 tokens của gói Bronze!")
+            print(f"\n[BỊ CHẶN THÀNH CÔNG] Yêu cầu {i} đã bị chặn chính xác bởi Apigee LLM Gateway!")
+            details = getattr(e, "details", None)
+            code = getattr(e, "code", None)
+            if isinstance(details, dict):
+                fault = details.get("fault", {})
+                faultstring = fault.get("faultstring", "")
+                errorcode = fault.get("detail", {}).get("errorcode", "")
+                print(f"- HTTP Status Code: {code}")
+                print(f"- Fault String: {faultstring}")
+                print(f"- Error Code: {errorcode}")
+            else:
+                print(f"- Chi tiết lỗi: {e}")
         else:
             import traceback
             traceback.print_exc()
@@ -271,11 +280,13 @@ for i, prompt in enumerate(prompts, 1):
 ```
 
 ### 🎯 Kết quả mong đợi khi chạy `test_quota.py`
-* **Yêu cầu 1 & 2**: Thành công, tổng số token tích lũy đạt khoảng ~1,200 - 1,500 tokens.
-* **Yêu cầu 3 hoặc 4**: Sẽ bị Apigee chặn ngay lập tức ở đầu vào (PreFlow) và trả về lỗi **`HTTP 429 Too Many Requests`** kèm thông báo lỗi Quota từ Apigee:
+* **Yêu cầu 1**: Thành công, tổng số token tích lũy đạt khoảng ~1,200 - 1,500 tokens (hoặc vượt ngưỡng 2,000 tokens ngay lập tức nếu câu trả lời của Gemini rất dài).
+* **Yêu cầu tiếp theo**: Sẽ bị Apigee chặn ngay lập tức ở đầu vào (PreFlow) và trả về lỗi **`HTTP 429`** kèm thông báo lỗi Quota từ Apigee:
   ```
-  [BỊ CHẶN THÀNH CÔNG] Lỗi xảy ra ở yêu cầu 3:
-  429 Quota Exceeded
+  [BỊ CHẶN THÀNH CÔNG] Yêu cầu 2 đã bị chặn chính xác bởi Apigee LLM Gateway!
+  - HTTP Status Code: 429
+  - Fault String: Rate limit LLM Token quota violation. Quota limit exceeded. Identifier : 100912709467197734190
+  - Error Code: policies.llmtokenquota.LLMTokenQuotaViolation
   ```
 
 ---
