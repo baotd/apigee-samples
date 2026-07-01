@@ -11,7 +11,7 @@ export GOOGLE_ID_TOKEN=$(gcloud auth print-identity-token \
 export APIGEE_HOST="34.144.192.207.nip.io"
 export PROJECT_ID="retail-agent-demo"
 export REGION="us-central1"
-export API_KEY="bwR35AAXN2zayoU9qnwL8RhqTYmh7q13siGzgvzAgL5rdXH3"
+export API_KEY="lQOChWus1ME06zaaJN14DYWuFXSp2BGUAmP2gQzq0MvLLDyhy0s2pBC0BwbooG2i"
 
 # 3. Tạo JSON payload an toàn bằng jq để tránh lỗi ký tự đặc biệt
 PAYLOAD=$(jq -n --arg prompt "$PROMPT" '{

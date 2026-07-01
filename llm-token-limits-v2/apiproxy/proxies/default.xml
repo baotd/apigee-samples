@@ -19,6 +19,7 @@
       </Step>
       <Step>
         <Name>JWT-VerifyGoogleIdToken</Name>
+        <Condition>(request.header.Authorization != null)</Condition>
       </Step>
       <Step>
         <Name>AM-SetEndUserId</Name>

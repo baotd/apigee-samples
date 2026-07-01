@@ -13,14 +13,18 @@
 -->
 <AssignMessage async="false" continueOnError="false" enabled="true" name="AM-SetEndUserId">
   <DisplayName>AM-SetEndUserId</DisplayName>
-  <!-- 1. Gán enduser_id bằng claim sub (luôn tồn tại cho cả User và Service Account) -->
+  <!-- 1. Mặc định gán enduser_id bằng email của Developer sở hữu API Key (từ Developer Portal) -->
+  <AssignVariable>
+    <Name>enduser_id</Name>
+    <Ref>developer.email</Ref>
+    <Value>unknown</Value>
+  </AssignVariable>
+  <!-- 2. Nếu có JWT, cố gắng ghi đè bằng claim sub (User ID) -->
   <AssignVariable>
     <Name>enduser_id</Name>
     <Ref>jwt.JWT-VerifyGoogleIdToken.decoded.claim.sub</Ref>
-    <Value>unknown</Value>
   </AssignVariable>
-  <!-- 2. Cố gắng ghi đè bằng claim email (chỉ tồn tại cho User thật). 
-       Nếu không tồn tại, Apigee sẽ bỏ qua và giữ nguyên giá trị sub ở trên. -->
+  <!-- 3. Nếu có JWT, cố gắng ghi đè bằng claim email (User Email) -->
   <AssignVariable>
     <Name>enduser_id</Name>
     <Ref>jwt.JWT-VerifyGoogleIdToken.decoded.claim.email</Ref>
