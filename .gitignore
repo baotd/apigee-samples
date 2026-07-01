@@ -16,3 +16,7 @@
 *.jar
 **/env1.sh
 **/.env
+.venv/
+.venv
+venv/
+venv
