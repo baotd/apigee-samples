@@ -1,11 +1,12 @@
 # Progress
 
-## Session History
-- **2026-07-01**: Integrated Google Identity verification (ID Token JWT validation) with dynamic audience validation in Apigee Proxy (`llm-token-limits-v2`).
-  - Created `JWT-VerifyGoogleIdToken.xml` policy to verify Google ID Tokens via JWKS.
-  - Updated `proxies/default.xml` PreFlow to execute JWT verification immediately after API Key verification.
-  - Configured `LTQ-TokenEnforce.xml` and `LTQ-TokenCount.xml` to enforce quota by user sub claim.
-  - Updated `DC-CollectTokenCounts.xml` to record user email via data collector.
-  - Enhanced deployment script `deploy-llm-token-limits-v2.sh` to load `.env` at root, create data collectors, and set up custom reports.
-  - Created a comprehensive, realistic testing guide (`test.md`) and quota testing script (`test-quota.py`) for simulated client testing via cURL and Python SDK.
-  - Completed code review of `test.md` successfully with no issues detected.
+## Fallback Pattern Implementation for enduser_id
+
+- **Status:** Completed
+- **Reviewer Report:** Code review of the Fallback Pattern implementation completed successfully with no issues.
+- **Session Summary:**
+  - Implemented an elegant Fallback Pattern (sub -> email) using AssignMessage policy `AM-SetEndUserId` to resolve `enduser_id` context variable.
+  - Integrated `AM-SetEndUserId` policy execution into `proxies/default.xml` before `DC-CollectTokenCounts` runs.
+  - Updated `DC-CollectTokenCounts.xml` to capture `enduser_id`.
+  - Updated `test.md` and `test_quota.py` to match the changes.
+

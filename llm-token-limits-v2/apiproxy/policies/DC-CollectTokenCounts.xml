@@ -27,7 +27,7 @@
     <DataCollector>dc_total_token_count_v2</DataCollector>
   </Capture>
   <Capture>
-    <Collect ref="jwt.JWT-VerifyGoogleIdToken.decoded.claim.email" default="unknown"/>
+    <Collect ref="enduser_id" default="unknown"/>
     <DataCollector>dc_enduser_id_v2</DataCollector>
   </Capture>
 </DataCapture>
