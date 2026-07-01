@@ -14,6 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+if [ -f "../.env" ]; then
+  echo "Loading environment variables from root .env file..."
+  export $(grep -v '^#' ../.env | xargs)
+  # Map PROJECT_ID to PROJECT if PROJECT is not set
+  if [ -z "$PROJECT" ] && [ ! -z "$PROJECT_ID" ]; then
+    export PROJECT="$PROJECT_ID"
+  fi
+fi
+
 if [ -z "$PROJECT" ]; then
   echo "No PROJECT variable set"
   exit
@@ -39,7 +48,12 @@ export PATH=$PATH:$HOME/.apigeecli/bin
 
 gcloud config set project "$PROJECT"
 
-PRE_PROP="region=$REGION"
+if [ -z "$AUDIENCE" ]; then
+  AUDIENCE="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+fi
+
+PRE_PROP="region=$REGION
+audience=$AUDIENCE"
 
 echo "$PRE_PROP" > ./apiproxy/resources/properties/vertex_config.properties
 
@@ -50,6 +64,7 @@ echo "Creating Data collectors..."
 apigeecli datacollectors create -d "Candidates token count v2" -n dc_candidates_token_count_v2 -p INTEGER --org "$PROJECT" --token "$TOKEN"
 apigeecli datacollectors create -d "Prompt token count v2" -n dc_prompt_token_count_v2 -p INTEGER --org "$PROJECT" --token "$TOKEN"
 apigeecli datacollectors create -d "Total token count v2" -n dc_total_token_count_v2 -p INTEGER --org "$PROJECT" --token "$TOKEN"
+apigeecli datacollectors create -d "End User id v2" -n dc_enduser_id_v2 -p STRING --org "$PROJECT" --token "$TOKEN"
 
 echo "Creating Token Consumption Report...."
 
@@ -58,7 +73,7 @@ curl --request POST \
   --header "Authorization: Bearer $TOKEN" \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
-  --data '{"name":"tokens-consumption-report-v2","displayName":"Tokens Consumption Report v2","metrics":[{"name":"dc_prompt_token_count_v2","function":"sum"},{"name":"dc_candidates_token_count_v2","function":"sum"},{"name":"dc_total_token_count_v2","function":"sum"}],"dimensions":["api_product","developer_app"],"properties":[{"value":[{}]}],"chartType":"line"}' \
+  --data '{"name":"tokens-consumption-report-v2","displayName":"Tokens Consumption Report v2","metrics":[{"name":"dc_prompt_token_count_v2","function":"sum"},{"name":"dc_candidates_token_count_v2","function":"sum"},{"name":"dc_total_token_count_v2","function":"sum"}],"dimensions":["api_product","developer_app","dc_enduser_id_v2"],"properties":[{"value":[{}]}],"chartType":"line"}' \
   --compressed
 
 echo "Importing and Deploying Apigee llm-token-limits-v2 proxy..."

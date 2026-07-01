@@ -17,6 +17,9 @@
       <Step>
         <Name>VA-VerifyAPIKey</Name>
       </Step>
+      <Step>
+        <Name>JWT-VerifyGoogleIdToken</Name>
+      </Step>
     </Request>
     <Response/>
   </PreFlow>
