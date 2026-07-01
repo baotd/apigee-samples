@@ -7,4 +7,5 @@
   - Configured `LTQ-TokenEnforce.xml` and `LTQ-TokenCount.xml` to enforce quota by user sub claim.
   - Updated `DC-CollectTokenCounts.xml` to record user email via data collector.
   - Enhanced deployment script `deploy-llm-token-limits-v2.sh` to load `.env` at root, create data collectors, and set up custom reports.
-  - Successfully validated implementation and verified deployment configuration.
+  - Created a comprehensive, realistic testing guide (`test.md`) and quota testing script (`test-quota.py`) for simulated client testing via cURL and Python SDK.
+  - Completed code review of `test.md` successfully with no issues detected.

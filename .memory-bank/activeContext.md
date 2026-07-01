@@ -99,4 +99,4 @@ N/A
 
 ---
 Current Phase: DONE
-Last Action: Đã hoàn thành triển khai toàn bộ tài nguyên lên Apigee, sửa lỗi bóc tách Bearer, tích hợp Google Authentication với Service Account, cập nhật mô hình lên Gemini 2.5 Flash tại vùng us-central1 và kiểm thử thành công 100%.
+Last Action: Đã hoàn thành viết tài liệu hướng dẫn kiểm thử thực tế chi tiết vào test.md, hoàn thành code review và sẵn sàng commit.
