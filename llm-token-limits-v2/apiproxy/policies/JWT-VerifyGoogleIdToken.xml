@@ -14,7 +14,6 @@
 <VerifyJWT async="false" continueOnError="false" enabled="true" name="JWT-VerifyGoogleIdToken">
   <DisplayName>JWT-VerifyGoogleIdToken</DisplayName>
   <Algorithm>RS256</Algorithm>
-  <Source>request.header.Authorization</Source>
   <PublicKey>
     <JWKS uri="https://www.googleapis.com/oauth2/v3/certs"/>
   </PublicKey>

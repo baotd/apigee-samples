@@ -33,6 +33,13 @@
     <Response/>
   </PostFlow>
   <HTTPTargetConnection>
+    <Authentication>
+      <GoogleAccessToken>
+        <Scopes>
+          <Scope>https://www.googleapis.com/auth/cloud-platform</Scope>
+        </Scopes>
+      </GoogleAccessToken>
+    </Authentication>
     <Properties/>
     <URL>https://{propertyset.vertex_config.region}-aiplatform.googleapis.com</URL>
   </HTTPTargetConnection>

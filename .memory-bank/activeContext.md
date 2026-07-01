@@ -33,7 +33,7 @@ Custom Report: tokens-consumption-report-v2 — Báo cáo lượng tiêu thụ t
 
 *API Specifications*
 ```
-POST /v2/samples/llm-token-limits/v1/projects/retail-agent-demo/locations/asia-southeast2/publishers/google/models/*:generateContent
+POST /v2/samples/llm-token-limits/v1/projects/retail-agent-demo/locations/us-central1/publishers/google/models/gemini-2.5-flash:generateContent
 Auth:     API Key (x-apikey header) + Google ID Token (Authorization Bearer header)
 Request:  Vertex AI Gemini request body
 Response: Vertex AI Gemini response body (chứa usageMetadata)
@@ -79,7 +79,7 @@ N/A
 **Deployment Target**
 - Provider: Google Cloud Platform (GCP)
 - Environment: Apigee Eval (`eval` trên dự án `retail-agent-demo`)
-- Region: `asia-southeast2` (Jakarta)
+- Region: `us-central1` (Iowa)
 
 **Risk Register**
 | Risk | Likelihood | Impact | Mitigation |
@@ -99,4 +99,4 @@ N/A
 
 ---
 Current Phase: DONE
-Last Action: Integrated Google Identity (ID Token JWT verification) with dynamic audience verification, updated quota/analytics capture, and committed changes.
+Last Action: Đã hoàn thành triển khai toàn bộ tài nguyên lên Apigee, sửa lỗi bóc tách Bearer, tích hợp Google Authentication với Service Account, cập nhật mô hình lên Gemini 2.5 Flash tại vùng us-central1 và kiểm thử thành công 100%.

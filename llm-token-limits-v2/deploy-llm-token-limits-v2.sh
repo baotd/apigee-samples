@@ -78,7 +78,7 @@ curl --request POST \
 
 echo "Importing and Deploying Apigee llm-token-limits-v2 proxy..."
 REV=$(apigeecli apis create bundle -f ./apiproxy -n llm-token-limits-v2 --org "$PROJECT" --token "$TOKEN" --disable-check | jq ."revision" -r)
-apigeecli apis deploy --wait --name llm-token-limits-v2 --ovr --rev "$REV" --org "$PROJECT" --env "$APIGEE_ENV" --token "$TOKEN"
+apigeecli apis deploy --wait --name llm-token-limits-v2 --ovr --rev "$REV" --org "$PROJECT" --env "$APIGEE_ENV" --sa "vertex-express@retail-agent-demo.iam.gserviceaccount.com" --token "$TOKEN"
 
 echo "Creating AI Products"
 apigeecli products create --name ai-product-bronze-v2 --display-name "AI Product Bronze v2" --envs "$APIGEE_ENV" --scopes "READ" --scopes "WRITE" --scopes "ACTION" --approval auto --llmopgrp ./aiproduct-bronze.json --org "$PROJECT" --token "$TOKEN"
