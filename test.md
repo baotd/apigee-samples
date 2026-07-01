@@ -21,8 +21,10 @@ Chạy lệnh sau trong terminal của bạn (yêu cầu đã cài đặt và đ
 # 1. Định nghĩa Audience chính xác được cấu hình trong Apigee VerifyJWT
 AUDIENCE="782426757735-7s3966tahaevq86l4k8c7nge4j913bl4.apps.googleusercontent.com"
 
-# 2. Sinh Google ID Token
-export GOOGLE_ID_TOKEN=$(gcloud auth print-identity-token --audience="$AUDIENCE")
+# 2. Sinh Google ID Token bằng cách impersonate Service Account (để gán Audience tùy chỉnh)
+export GOOGLE_ID_TOKEN=$(gcloud auth print-identity-token \
+  --impersonate-service-account="vertex-express@retail-agent-demo.iam.gserviceaccount.com" \
+  --audiences="$AUDIENCE")
 
 # 3. Kiểm tra token đã sinh
 echo $GOOGLE_ID_TOKEN
@@ -58,6 +60,7 @@ curl -X POST "https://${APIGEE_HOST}/v2/samples/llm-token-limits/v1/projects/${P
   -d '{
     "contents": [
       {
+        "role": "user",
         "parts": [
           {
             "text": "Why is the sky blue? Answer in 1 short sentence."
